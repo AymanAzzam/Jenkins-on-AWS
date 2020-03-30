@@ -7,7 +7,11 @@ pipeline {
         AWS_SECRET_ACCESS_KEY = "${env.AWS_ID_PSW}"
     }
     stages {
-        
+        stage('LINT HTML') {
+            steps {
+                  tidy -q -e *.html
+            }
+        }
         stage('Upload to AWS') {
             steps {
                   s3Upload(file:'index.html',bucket: 'udacity-project3-jenkins', path: "index.html")
